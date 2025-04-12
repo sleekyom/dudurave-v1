@@ -1,4 +1,4 @@
-export interface GraphQLEvent {
+export interface DuduraveEvent {
   id: string;
   title: string;
   description: string;
@@ -12,7 +12,7 @@ export interface GraphQLEvent {
 }
 
 export interface EventsResponse {
-  events: GraphQLEvent[];
+  events: DuduraveEvent[];
 }
 
 export interface EventDetailsResponse {

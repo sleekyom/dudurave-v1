@@ -1,7 +1,7 @@
 import { getEvents } from "@/lib/hygraph";
 import { EventCard } from "@/components/event-card";
 import { Navbar } from "@/components/ui/navbar";
-import { type Event } from "@/lib/hygraph";
+import { DuduraveEvent } from "@/lib/types";
 
 export default async function EventsPage() {
   const events = await getEvents();
@@ -17,7 +17,7 @@ export default async function EventsPage() {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {events?.map((event: Event) => (
+          {events?.map((event: DuduraveEvent) => (
             <EventCard key={event.id} event={event} />
           ))}
         </div>

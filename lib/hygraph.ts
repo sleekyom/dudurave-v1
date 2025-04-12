@@ -1,5 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
-import { GraphQLEvent, EventsResponse, EventDetailsResponse } from './types';
+import { DuduraveEvent, EventsResponse, EventDetailsResponse } from './types';
 
 const hygraphApiEndpoint = process.env.NEXT_PUBLIC_HYGRAPH_API_ENDPOINT;
 
@@ -55,7 +55,7 @@ const hygraphClient = new GraphQLClient(hygraphApiEndpoint, {
   },
 });
 
-export const getEvents = async (): Promise<GraphQLEvent[]> => {
+export const getEvents = async (): Promise<DuduraveEvent[]> => {
   try {
     const query = `
       query Events {
