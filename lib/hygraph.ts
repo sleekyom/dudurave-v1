@@ -1,4 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
+import { GraphQLEvent, EventsResponse, EventDetailsResponse } from './types';
 
 const hygraphApiEndpoint = process.env.NEXT_PUBLIC_HYGRAPH_API_ENDPOINT;
 
@@ -17,8 +18,8 @@ if (!hygraphApiEndpoint.startsWith('http://') && !hygraphApiEndpoint.startsWith(
 
 // Configure the GraphQL client with timeout and retries
 const hygraphClient = new GraphQLClient(hygraphApiEndpoint, {
-  timeout: 15000, // 15 second timeout
-  fetch: async (url: RequestInfo, options: RequestInit = {}) => {
+
+  fetch: async (url: RequestInfo | URL, options: RequestInit = {}) => {
     const maxRetries = 3;
     let lastError: Error | null = null;
 
@@ -41,24 +42,20 @@ const hygraphClient = new GraphQLClient(hygraphApiEndpoint, {
         return response;
       } catch (error) {
         lastError = error as Error;
-        
+
         // If this was the last attempt, throw the error
         if (attempt === maxRetries) {
-          throw new Error(
-            `Failed to fetch after ${maxRetries} attempts. Last error: ${lastError.message}`
-          );
+          throw lastError;
         }
-
-        // Wait before retrying (exponential backoff)
-        await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000));
       }
     }
 
-    throw lastError;
-  }
+    // This line should never be reached
+    throw new Error("Unexpected error in fetch implementation");
+  },
 });
 
-export const getEvents = async () => {
+export const getEvents = async (): Promise<GraphQLEvent[]> => {
   try {
     const query = `
       query Events {
@@ -77,7 +74,7 @@ export const getEvents = async () => {
       }
     `;
 
-    const { events } = await hygraphClient.request(query);
+    const { events } = await hygraphClient.request<EventsResponse>(query);
     return events;
   } catch (error) {
     console.error('Error fetching events:', error);
@@ -95,7 +92,7 @@ export const getAllEvents = async () => {
       }
     `;
 
-    const { events } = await hygraphClient.request(query);
+    const { events } = await hygraphClient.request<EventsResponse>(query)
     return events;
   } catch (error) {
     console.error('Error fetching all events:', error);
@@ -122,7 +119,7 @@ export const getEventBySlug = async (slug: string) => {
       }
     `;
 
-    const { event } = await hygraphClient.request(query, { slug });
+    const { event } = await hygraphClient.request<EventDetailsResponse>(query, { slug });
     return event;
   } catch (error) {
     console.error(`Error fetching event with slug ${slug}:`, error);
