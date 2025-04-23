@@ -14,12 +14,13 @@ export default async function Home() {
       <main className="flex min-h-screen flex-col">
         {/* Hero Section */}
         <section className="relative h-screen flex items-center justify-center">
-          <div 
+          <div
             className="absolute inset-0 z-0"
             style={{
-              backgroundImage: "url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')",
+              backgroundImage:
+                "url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')",
               backgroundSize: "cover",
-              backgroundPosition: "center",
+              backgroundPosition: "center"
             }}
           >
             <div className="absolute inset-0 bg-black/50" />
@@ -42,7 +43,8 @@ export default async function Home() {
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">Featured Events</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Discover our handpicked selection of upcoming events that celebrate African culture and community
+              Discover our handpicked selection of upcoming events that
+              celebrate African culture and community
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

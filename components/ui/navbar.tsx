@@ -3,31 +3,43 @@
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import Image from "next/image";
 
 export function Navbar() {
   return (
     <header className="fixed top-0 w-full z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
-          <span className="text-2xl font-bold">DuduRave</span>
+          <Image
+            src="/duduraveblack.svg"
+            alt="DuduRave Logo"
+            width={100}
+            height={100}
+            className="mt-2"
+          />
         </Link>
-        
+
         <div className="hidden md:flex items-center space-x-8">
           <Link href="/" className="text-foreground/60 hover:text-foreground">
             Home
           </Link>
-          <Link href="/events" className="text-foreground/60 hover:text-foreground">
+          <Link
+            href="/events"
+            className="text-foreground/60 hover:text-foreground"
+          >
             Events
           </Link>
-          <Link href="/about" className="text-foreground/60 hover:text-foreground">
+          <Link
+            href="/about"
+            className="text-foreground/60 hover:text-foreground"
+          >
             About
           </Link>
-          <Link href="/contact" className="text-foreground/60 hover:text-foreground">
+          <Link
+            href="/contact"
+            className="text-foreground/60 hover:text-foreground"
+          >
             Contact
           </Link>
         </div>
@@ -40,16 +52,28 @@ export function Navbar() {
           </SheetTrigger>
           <SheetContent side="right">
             <nav className="flex flex-col space-y-4">
-              <Link href="/" className="text-foreground/60 hover:text-foreground">
+              <Link
+                href="/"
+                className="text-foreground/60 hover:text-foreground"
+              >
                 Home
               </Link>
-              <Link href="/events" className="text-foreground/60 hover:text-foreground">
+              <Link
+                href="/events"
+                className="text-foreground/60 hover:text-foreground"
+              >
                 Events
               </Link>
-              <Link href="/about" className="text-foreground/60 hover:text-foreground">
+              <Link
+                href="/about"
+                className="text-foreground/60 hover:text-foreground"
+              >
                 About
               </Link>
-              <Link href="/contact" className="text-foreground/60 hover:text-foreground">
+              <Link
+                href="/contact"
+                className="text-foreground/60 hover:text-foreground"
+              >
                 Contact
               </Link>
             </nav>
