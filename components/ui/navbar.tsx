@@ -9,7 +9,7 @@ import Image from "next/image";
 export function Navbar() {
   return (
     <header className="fixed top-0 w-full z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav className="container flex h-16 items-center justify-between">
+      <nav className="container flex h-16 items-center justify-between mx-auto max-w-screen-2xl">
         <Link href="/" className="flex items-center space-x-2">
           <Image
             src="/duduraveblack.svg"
@@ -36,12 +36,13 @@ export function Navbar() {
           >
             About
           </Link>
-          <Link
+          {/* TODO: get contact details */}
+          {/* <Link
             href="/contact"
             className="text-foreground/60 hover:text-foreground"
           >
             Contact
-          </Link>
+          </Link> */}
         </div>
 
         <Sheet>

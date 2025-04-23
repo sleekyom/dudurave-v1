@@ -2,6 +2,7 @@ import { getEvents } from "@/lib/hygraph";
 import { EventCard } from "@/components/event-card";
 import { Navbar } from "@/components/ui/navbar";
 import { DuduraveEvent } from "@/lib/types";
+import { NewsletterSection } from "@/components/NewsletterSection";
 
 export default async function EventsPage() {
   const events = await getEvents();
@@ -9,7 +10,7 @@ export default async function EventsPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen pt-24 pb-16 px-4 container">
+      <main className="min-h-screen pt-24 pb-16 px-4 container mx-auto max-w-screen-2xl">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">All Events</h1>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -22,6 +23,7 @@ export default async function EventsPage() {
           ))}
         </div>
       </main>
+      <NewsletterSection />
     </>
   );
 }
