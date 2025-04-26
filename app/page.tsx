@@ -26,25 +26,31 @@ export default async function Home() {
               backgroundPosition: "center"
             }}
           >
-            <div className="absolute inset-0 bg-black/50" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
           </div>
-          <div className="relative z-10 text-center text-white space-y-6 px-4 items-center justify-center">
-            {/* <h1 className="text-5xl md:text-7xl font-bold">DuduRave</h1> */}
+          <div className="relative z-10 text-center text-white space-y-8 px-4 items-center justify-center">
             <Image
               src="/herowhite.png"
               alt="DuduRave Logo"
               width={600}
               height={600}
-              className="mt-2"
+              className="mt-2 animate-fade-in-down"
             />
-            <p className="text-xl md:text-2xl max-w-2xl mx-auto">
-              Experience the best African cultural events and celebrations
-            </p>
-            <Link href="/events">
-              <Button size="lg" className="mt-8">
-                Explore Events
-              </Button>
-            </Link>
+            <div className="space-y-6">
+              <h2 className="text-2xl md:text-4xl font-semibold tracking-tight">
+                Your Gateway to Authentic African Experiences
+              </h2>
+              <p className="text-lg md:text-xl max-w-2xl mx-auto text-gray-200 leading-relaxed">
+                Discover vibrant cultural festivals, electrifying concerts, and unforgettable celebrations that showcase the rich tapestry of African heritage.
+              </p>
+            </div>
+            <div className="mt-8">
+              <Link href="/events">
+                <Button size="lg" className="min-w-[200px] bg-white text-black hover:bg-gray-100">
+                  Discover Events
+                </Button>
+              </Link>
+            </div>
           </div>
         </section>
 
