@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 
 const isValidEmail = (email: string): boolean => {
@@ -15,18 +15,28 @@ export function NewsletterSection() {
   const [errorMessage, setErrorMessage] = useState("");
   const [touched, setTouched] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const validateEmail = (): boolean => {
+    setTouched(true);
+    
     if (!email.trim()) {
       setErrorMessage("Email is required");
       setStatus("error");
-      return;
+      return false;
     }
 
     if (!isValidEmail(email)) {
       setErrorMessage("Please enter a valid email address");
       setStatus("error");
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    if (!validateEmail()) {
       return;
     }
 
@@ -41,6 +51,14 @@ export function NewsletterSection() {
       if (!res.ok) throw new Error(data.error || "Subscription failed");
       setStatus("success");
       setEmail("");
+      
+      // Clear success message after 3 seconds
+      const timer = setTimeout(() => {
+        setStatus("idle");
+      }, 3000);
+
+      // Cleanup timer if component unmounts
+      return () => clearTimeout(timer);
     } catch (err: any) {
       setErrorMessage(err.message);
       setStatus("error");
@@ -62,23 +80,24 @@ export function NewsletterSection() {
         >
           <div className="flex-1">
             <input
-              type="email"
+              type="text"
               placeholder="Enter your email"
-              className={`w-full px-4 py-2 rounded-md ${
-                touched && !isValidEmail(email) ? "border-2 border-red-500" : ""
-              }`}
+              className={`w-full px-4 py-2 rounded-md ${touched && status === "error" ? "border-2 border-red-500" : ""}`}
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
-                setStatus("idle");
-                setErrorMessage("");
+                if (touched) {
+                  validateEmail();
+                } else {
+                  setStatus("idle");
+                  setErrorMessage("");
+                }
               }}
-              onBlur={() => setTouched(true)}
-              required
+              onBlur={validateEmail}
             />
-            {touched && !isValidEmail(email) && email.trim() !== "" && (
+            {status === "error" && (
               <p className="text-red-500 text-sm text-left mt-1">
-                Please enter a valid email address
+                {errorMessage}
               </p>
             )}
           </div>
@@ -88,9 +107,6 @@ export function NewsletterSection() {
         </form>
         {status === "success" && (
           <p className="text-green-500 mt-4">Subscribed successfully! 🎉</p>
-        )}
-        {status === "error" && (
-          <p className="text-red-500 mt-4">{errorMessage}</p>
         )}
       </div>
     </section>
