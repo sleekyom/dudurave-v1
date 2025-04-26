@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { NewsletterSection } from "@/components/NewsletterSection";
 import { FeaturedEventsSection } from "@/components/FeaturedEventsSection";
+import PollSection from '@/components/PollSection';
 
 export default async function Home() {
   const events = await getEvents();
@@ -49,6 +50,9 @@ export default async function Home() {
 
         {/* Featured Events Section */}
         <FeaturedEventsSection events={events} />
+
+        {/* Poll Section */}
+        <PollSection />
 
         {/* Newsletter Section */}
         <NewsletterSection />

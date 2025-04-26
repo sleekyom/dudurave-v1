@@ -1,5 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
-import { DuduraveEvent, EventsResponse, EventDetailsResponse } from './types';
+import { DuduraveEvent, EventsResponse, EventDetailsResponse, Poll, PollOption } from './types';
 
 const hygraphApiEndpoint = process.env.NEXT_PUBLIC_HYGRAPH_API_ENDPOINT;
 
@@ -53,6 +53,16 @@ const hygraphClient = new GraphQLClient(hygraphApiEndpoint, {
     // This line should never be reached
     throw new Error("Unexpected error in fetch implementation");
   },
+});
+
+// Admin client for write operations (mutations)
+const hygraphAdminApiEndpoint = process.env.NEXT_PUBLIC_HYGRAPH_ADMIN_API_ENDPOINT;
+const hygraphAdminToken = process.env.NEXT_PUBLIC_HYGRAPH_ADMIN_API_TOKEN;
+if (!hygraphAdminApiEndpoint || !hygraphAdminToken) {
+  throw new Error('HYGRAPH_ADMIN_API_ENDPOINT and HYGRAPH_ADMIN_API_TOKEN must be set for mutations');
+}
+const hygraphAdminClient = new GraphQLClient(hygraphAdminApiEndpoint, {
+  headers: { Authorization: `Bearer ${hygraphAdminToken}` },
 });
 
 export const getEvents = async (): Promise<DuduraveEvent[]> => {
@@ -124,5 +134,60 @@ export const getEventBySlug = async (slug: string) => {
   } catch (error) {
     console.error(`Error fetching event with slug ${slug}:`, error);
     throw new Error('Failed to fetch event details. Please try again later.');
+  }
+};
+
+export const getLatestPoll = async (): Promise<Poll | null> => {
+  try {
+    const query = `
+      query GetLatestPoll {
+        polls(orderBy: createdAt_DESC, first: 1) {
+          id
+          question
+          options {
+            id
+            text
+            votes
+          }
+        }
+      }
+    `;
+    const { polls } = await hygraphClient.request<{ polls: Poll[] }>(query);
+    return polls.length ? polls[0] : null;
+  } catch (error) {
+    console.error('Error fetching latest poll:', error);
+    throw new Error('Failed to fetch latest poll.');
+  }
+};
+
+export const voteOnPollOption = async (optionId: string): Promise<void> => {
+  try {
+    // fetch current poll to compute new votes
+    const poll = await getLatestPoll();
+    if (!poll) throw new Error('No poll found');
+    const option = poll.options.find(o => o.id === optionId);
+    if (!option) throw new Error('Option not found');
+    const newVotes = option.votes + 1;
+    
+    // Update and publish in one mutation
+    const mutation = `
+      mutation VoteOnOption($id: ID!, $votes: Int!) {
+        # First update the votes
+        updateOption(where: { id: $id }, data: { votes: $votes }) {
+          id
+          votes
+        }
+        # Then publish the updated option
+        publishOption(where: { id: $id }) {
+          id
+          votes
+        }
+      }
+    `;
+    
+    await hygraphAdminClient.request(mutation, { id: optionId, votes: newVotes });
+  } catch (error) {
+    console.error('Error voting on option:', error);
+    throw new Error('Failed to submit vote.');
   }
 };
