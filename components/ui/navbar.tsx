@@ -20,7 +20,7 @@ export function Navbar() {
           />
         </Link>
 
-        <div className="hidden md:flex items-center space-x-8">
+        <div className="hidden md:flex items-center space-x-8 px-4">
           <Link href="/" className="text-foreground/60 hover:text-foreground">
             Home
           </Link>
