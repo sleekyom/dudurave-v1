@@ -1,6 +1,7 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const isValidEmail = (email: string): boolean => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -14,6 +15,7 @@ export function NewsletterSection() {
   >("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [touched, setTouched] = useState(false);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const validateEmail = (): boolean => {
     setTouched(true);
@@ -40,12 +42,23 @@ export function NewsletterSection() {
       return;
     }
 
+    // Verify reCAPTCHA
+    const recaptchaValue = await recaptchaRef.current?.executeAsync();
+    if (!recaptchaValue) {
+      setErrorMessage("Please verify that you are not a robot");
+      setStatus("error");
+      return;
+    }
+
     setStatus("loading");
     try {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({ 
+          email,
+          recaptchaToken: recaptchaValue 
+        }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Subscription failed");
@@ -78,6 +91,11 @@ export function NewsletterSection() {
           onSubmit={handleSubmit}
           className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
         >
+          <ReCAPTCHA
+            ref={recaptchaRef}
+            size="invisible"
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+          />
           <div className="flex-1">
             <input
               type="text"

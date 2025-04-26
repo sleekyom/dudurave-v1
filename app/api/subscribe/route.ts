@@ -1,6 +1,21 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+async function verifyRecaptcha(token: string) {
+  const secretKey = process.env.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY;
+
+  const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `secret=${secretKey}&response=${token}`,
+  });
+
+  const data = await response.json();
+  return data.success;
+}
+
 export async function POST(request: NextRequest) {
   try {
     // parse JSON body safely
@@ -10,7 +25,20 @@ export async function POST(request: NextRequest) {
     } catch (_e) {
       return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
     }
-    const { email } = body;
+    const { email, recaptchaToken } = body;
+
+    // Verify reCAPTCHA token
+    if (!recaptchaToken) {
+      return NextResponse.json({ error: "reCAPTCHA token is required" }, { status: 400 });
+    }
+
+    const isHuman = await verifyRecaptcha(recaptchaToken);
+    if (!isHuman) {
+      return NextResponse.json(
+        { error: "reCAPTCHA verification failed" },
+        { status: 400 }
+      );
+    }
     const apiKey = process.env.NEXT_PUBLIC_BEEHIIV_API_KEY;
     const newsletterId = process.env.NEXT_PUBLIC_BEEHIIV_NEWSLETTER_ID;
 
