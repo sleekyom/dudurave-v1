@@ -2,19 +2,40 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 
+const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(email);
+};
+
 export function NewsletterSection() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [touched, setTouched] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!email.trim()) {
+      setErrorMessage("Email is required");
+      setStatus("error");
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      setErrorMessage("Please enter a valid email address");
+      setStatus("error");
+      return;
+    }
+
     setStatus("loading");
     try {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email })
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Subscription failed");
@@ -35,14 +56,32 @@ export function NewsletterSection() {
         <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
           Subscribe to our newsletter and never miss an event
         </p>
-        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            className="flex-1 px-4 py-2 rounded-md"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
+        >
+          <div className="flex-1">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className={`w-full px-4 py-2 rounded-md ${
+                touched && !isValidEmail(email) ? "border-2 border-red-500" : ""
+              }`}
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setStatus("idle");
+                setErrorMessage("");
+              }}
+              onBlur={() => setTouched(true)}
+              required
+            />
+            {touched && !isValidEmail(email) && email.trim() !== "" && (
+              <p className="text-red-500 text-sm text-left mt-1">
+                Please enter a valid email address
+              </p>
+            )}
+          </div>
           <Button variant="secondary" disabled={status === "loading"}>
             {status === "loading" ? "Subscribing..." : "Subscribe"}
           </Button>
