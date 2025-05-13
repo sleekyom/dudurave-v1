@@ -1,0 +1,66 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes loadingBar {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+.animateFadeIn {
+  animation: fadeIn 1.5s ease-out forwards;
+}
+
+.animateSlideUp {
+  animation: slideUp 1.5s ease-out forwards;
+}
+
+.animateLoadingBar {
+  animation: loadingBar 2s linear infinite;
+}
+
+.delay300 {
+  animation-delay: 300ms;
+}
+
+@keyframes breathing {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+    text-shadow: 0 0 5px rgba(255, 165, 0, 0.3);
+    letter-spacing: normal;
+  }
+  50% {
+    transform: scale(1.03);
+    filter: brightness(1.2);
+    text-shadow: 0 0 20px rgba(255, 165, 0, 0.7),
+      0 0 30px rgba(255, 165, 0, 0.5), 0 0 40px rgba(255, 165, 0, 0.3);
+    letter-spacing: 1px;
+  }
+}
+
+.breathingAnimation {
+  animation: breathing 5s ease-in-out infinite;
+  transform-origin: center;
+}
