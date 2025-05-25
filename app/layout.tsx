@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "DuduRave",
@@ -14,7 +15,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-body">{children}</body>
+      <body className="font-body">
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

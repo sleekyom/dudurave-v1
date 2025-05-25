@@ -31,7 +31,8 @@ export function NewsletterSection() {
       setStatus("error");
       return false;
     }
-
+    setErrorMessage(""); // Clear error message if valid
+    setStatus("idle");    // Reset status if valid
     return true;
   };
 
@@ -42,7 +43,6 @@ export function NewsletterSection() {
       return;
     }
 
-    // Verify reCAPTCHA
     const recaptchaValue = await recaptchaRef.current?.executeAsync();
     if (!recaptchaValue) {
       setErrorMessage("Please verify that you are not a robot");
@@ -64,13 +64,13 @@ export function NewsletterSection() {
       if (!res.ok) throw new Error(data.error || "Subscription failed");
       setStatus("success");
       setEmail("");
+      setTouched(false); // Reset touched state
+      recaptchaRef.current?.reset(); // Reset reCAPTCHA
 
-      // Clear success message after 3 seconds
       const timer = setTimeout(() => {
         setStatus("idle");
       }, 3000);
 
-      // Cleanup timer if component unmounts
       return () => clearTimeout(timer);
     } catch (err: any) {
       setErrorMessage(err.message);
@@ -102,7 +102,7 @@ export function NewsletterSection() {
               type="text"
               placeholder="Enter your email"
               className={`w-full px-4 py-2 rounded-md ${
-                touched && status === "error" ? "border-2 border-red-500" : ""
+                touched && status === "error" ? "border-2 border-red-500" : "border-gray-300"
               }`}
               value={email}
               onChange={(e) => {
@@ -116,13 +116,13 @@ export function NewsletterSection() {
               }}
               onBlur={validateEmail}
             />
-            {status === "error" && (
+            {status === "error" && errorMessage && (
               <p className="text-red-500 text-sm text-left mt-1">
                 {errorMessage}
               </p>
             )}
           </div>
-          <Button variant="secondary" disabled={status === "loading"}>
+          <Button variant="secondary" type="submit" disabled={status === "loading"}>
             {status === "loading" ? "Subscribing..." : "Subscribe"}
           </Button>
         </form>
