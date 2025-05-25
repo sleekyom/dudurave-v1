@@ -19,7 +19,7 @@ export function NewsletterSection() {
 
   const validateEmail = (): boolean => {
     setTouched(true);
-    
+
     if (!email.trim()) {
       setErrorMessage("Email is required");
       setStatus("error");
@@ -37,7 +37,7 @@ export function NewsletterSection() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     if (!validateEmail()) {
       return;
     }
@@ -55,16 +55,16 @@ export function NewsletterSection() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           email,
-          recaptchaToken: recaptchaValue 
-        }),
+          recaptchaToken: recaptchaValue
+        })
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Subscription failed");
       setStatus("success");
       setEmail("");
-      
+
       // Clear success message after 3 seconds
       const timer = setTimeout(() => {
         setStatus("idle");
@@ -82,10 +82,11 @@ export function NewsletterSection() {
     <section className="bg-primary py-20">
       <div className="container px-4 text-center mx-auto max-w-screen-2xl">
         <h2 className="text-3xl font-bold text-primary-foreground mb-4">
-          Stay Updated
+          Join the Dudurave Community
         </h2>
         <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-          Subscribe to our newsletter and never miss an event
+          Get the latest rave news and upcoming event details delivered straight
+          to your inbox.
         </p>
         <form
           onSubmit={handleSubmit}
@@ -100,7 +101,9 @@ export function NewsletterSection() {
             <input
               type="text"
               placeholder="Enter your email"
-              className={`w-full px-4 py-2 rounded-md ${touched && status === "error" ? "border-2 border-red-500" : ""}`}
+              className={`w-full px-4 py-2 rounded-md ${
+                touched && status === "error" ? "border-2 border-red-500" : ""
+              }`}
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);

@@ -6,6 +6,7 @@ import { Navbar } from "@/components/ui/navbar";
 import Link from "next/link";
 import Image from "next/image";
 import { NewsletterSection } from "@/components/NewsletterSection";
+import { SocialMediaSection } from "@/components/SocialMediaSection";
 // import { FeaturedEventsSection } from "@/components/FeaturedEventsSection";
 import PollSection from "@/components/PollSection";
 import { PlaylistSection } from "@/components/PlaylistSection";
@@ -87,6 +88,9 @@ export default function Home() {
 
         {/* Newsletter Section */}
         <NewsletterSection />
+
+        {/* Social Media Section */}
+        <SocialMediaSection />
       </main>
     </>
   );
