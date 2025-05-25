@@ -24,12 +24,12 @@ export function Navbar() {
           <Link href="/" className="text-white/70 hover:text-white transition-colors">
             Home
           </Link>
-          <Link
+          {/* <Link
             href="/events"
             className="text-white/70 hover:text-white transition-colors"
           >
             Events
-          </Link>
+          </Link> */}
           <Link
             href="/about"
             className="text-white/70 hover:text-white transition-colors"
@@ -59,12 +59,12 @@ export function Navbar() {
               >
                 Home
               </Link>
-              <Link
+              {/* <Link
                 href="/events"
                 className="text-white/70 hover:text-white transition-colors"
               >
                 Events
-              </Link>
+              </Link> */}
               <Link
                 href="/about"
                 className="text-white/70 hover:text-white transition-colors"

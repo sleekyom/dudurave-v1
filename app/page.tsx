@@ -1,15 +1,34 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { getEvents } from "@/lib/hygraph";
-import { EventCard } from "@/components/event-card";
-import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/ui/navbar";
 import Link from "next/link";
 import Image from "next/image";
 import { NewsletterSection } from "@/components/NewsletterSection";
-import { FeaturedEventsSection } from "@/components/FeaturedEventsSection";
-import PollSection from '@/components/PollSection';
+// import { FeaturedEventsSection } from "@/components/FeaturedEventsSection";
+import PollSection from "@/components/PollSection";
+import { PlaylistSection } from "@/components/PlaylistSection";
+import { Button } from "@/components/ui/button";
 
-export default async function Home() {
-  const events = await getEvents();
+const heroImages = [
+  "/duduraveheroone.png",
+  "/duduraveherotwo.png",
+  "/duduraveherothree.png"
+];
+
+export default function Home() {
+  // const events = await getEvents();
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(timer); // Cleanup on component unmount
+  }, []);
 
   return (
     <>
@@ -18,10 +37,9 @@ export default async function Home() {
         {/* Hero Section */}
         <section className="relative h-screen flex items-center justify-center">
           <div
-            className="absolute inset-0 z-0"
+            className="absolute inset-0 z-0 transition-all duration-1000 ease-in-out"
             style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')",
+              backgroundImage: `url(${heroImages[currentImageIndex]})`,
               backgroundSize: "cover",
               backgroundPosition: "center"
             }}
@@ -29,36 +47,43 @@ export default async function Home() {
             <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
           </div>
           <div className="relative z-10 text-center text-white space-y-8 px-4 items-center justify-center">
-            <Image
+            {/* <Image
               src="/herowhite.png"
               alt="DuduRave Logo"
               width={600}
               height={600}
               className="mt-2 animate-fade-in-down"
-            />
+            /> */}
             <div className="space-y-6">
               <h2 className="text-2xl md:text-4xl font-semibold tracking-tight">
-                Your Gateway to Authentic African Experiences
+                Where the Pulse of Afrobeats Ignites a Movement.
               </h2>
               <p className="text-lg md:text-xl max-w-2xl mx-auto text-gray-200 leading-relaxed">
-                Discover vibrant cultural festivals, electrifying concerts, and unforgettable celebrations that showcase the rich tapestry of African heritage.
+                This is the heartbeat of innovation, rhythm, and cultural
+                connection.
               </p>
             </div>
-            <div className="mt-8">
+            {/* <div className="mt-8">
               <Link href="/events">
-                <Button size="lg" className="min-w-[200px] bg-white text-black hover:bg-gray-100">
+                <Button
+                  size="lg"
+                  className="min-w-[200px] bg-white text-black hover:bg-gray-100"
+                >
                   Discover Events
                 </Button>
               </Link>
-            </div>
+            </div> */}
           </div>
         </section>
 
         {/* Featured Events Section */}
-        <FeaturedEventsSection events={events} />
+        {/* <FeaturedEventsSection events={events} /> */}
 
         {/* Poll Section */}
-        <PollSection />
+        {/* <PollSection /> */}
+
+        {/* DUDURAVE Playlist Section */}
+        <PlaylistSection />
 
         {/* Newsletter Section */}
         <NewsletterSection />
