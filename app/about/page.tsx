@@ -1,4 +1,5 @@
-import { NewsletterSection } from "@/components/NewsletterSection";
+"use client";
+
 import {
   Card,
   CardContent,

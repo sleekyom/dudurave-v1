@@ -13,13 +13,23 @@ declare global {
 }
 
 export const SocialMediaSection = () => {
+  // Use a React callback to ensure this doesn't cause issues during server rendering
   const handleSocialLinkClick = (platformName: string, url: string) => {
-    if (typeof window !== 'undefined' && window.dataLayer) {
-      window.dataLayer.push({
-        event: 'social_link_click', // Custom event name for GTM
-        social_platform: platformName,
-        social_url: url,
-      });
+    try {
+      // Double-check we're on the client side
+      if (typeof window !== 'undefined') {
+        // Initialize dataLayer if it doesn't exist yet
+        window.dataLayer = window.dataLayer || [];
+        
+        window.dataLayer.push({
+          event: 'social_link_click', // Custom event name for GTM
+          social_platform: platformName,
+          social_url: url,
+        });
+      }
+    } catch (err) {
+      // Silently handle any errors to prevent breaking the UI
+      console.error('GTM error:', err);
     }
     // Navigation will proceed via the href attribute of the <a> tag
   };

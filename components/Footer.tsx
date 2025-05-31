@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { NewsletterSection } from './NewsletterSection';
 import { SocialMediaSection } from './SocialMediaSection';
