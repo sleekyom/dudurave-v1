@@ -36,6 +36,25 @@ export interface PollOption {
   votes: number;
 }
 
+export interface AboutPageContent {
+  id: string;
+  title: string;
+  subtitle: string;
+  introText: string;
+  missionTitle: string;
+  missionText: string;
+  valuesTitle: string;
+  valuesList: Array<{
+    id: string;
+    title: string;
+    description: string;
+  }>;
+}
+
+export interface AboutPageResponse {
+  aboutPages: AboutPageContent[];
+}
+
 export interface Poll {
   id: string;
   question: string;
