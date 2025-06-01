@@ -21,15 +21,18 @@ export function Navbar() {
         </Link>
 
         <div className="hidden md:flex items-center space-x-8 px-4">
-          <Link href="/" className="text-white/70 hover:text-white transition-colors">
+          <Link
+            href="/"
+            className="text-white/70 hover:text-white transition-colors"
+          >
             Home
           </Link>
-          <Link
+          {/* <Link
             href="/events"
             className="text-white/70 hover:text-white transition-colors"
           >
             Events
-          </Link>
+          </Link> */}
           <Link
             href="/about"
             className="text-white/70 hover:text-white transition-colors"
@@ -47,11 +50,15 @@ export function Navbar() {
 
         <Sheet>
           <SheetTrigger asChild className="md:hidden">
-            <Button variant="ghost" size="icon" className="text-white hover:text-white/70">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-white hover:text-white/70"
+            >
               <Menu className="h-6 w-6" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="right">
+          <SheetContent side="right" className="bg-black">
             <nav className="flex flex-col space-y-4">
               <Link
                 href="/"
@@ -59,24 +66,24 @@ export function Navbar() {
               >
                 Home
               </Link>
-              <Link
+              {/* <Link
                 href="/events"
                 className="text-white/70 hover:text-white transition-colors"
               >
                 Events
-              </Link>
+              </Link> */}
               <Link
                 href="/about"
                 className="text-white/70 hover:text-white transition-colors"
               >
                 About
               </Link>
-              <Link
+              {/* <Link
                 href="/contact"
                 className="text-white/70 hover:text-white transition-colors"
               >
                 Contact
-              </Link>
+              </Link> */}
             </nav>
           </SheetContent>
         </Sheet>
