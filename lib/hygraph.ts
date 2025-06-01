@@ -1,5 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
-import { DuduraveEvent, EventsResponse, EventDetailsResponse, Poll, PollOption } from './types';
+import { DuduraveEvent, EventsResponse, EventDetailsResponse, Poll, PollOption, AboutPageContent, AboutPageResponse } from './types';
 
 const hygraphApiEndpoint = process.env.NEXT_PUBLIC_HYGRAPH_API_ENDPOINT;
 
@@ -189,5 +189,40 @@ export const voteOnPollOption = async (optionId: string): Promise<void> => {
   } catch (error) {
     console.error('Error voting on option:', error);
     throw new Error('Failed to submit vote.');
+  }
+};
+
+/**
+ * Fetches the About page content from Hygraph CMS.
+ *
+ * @returns {Promise<AboutPageContent>} The About page content or null if not found
+ * @throws {Error} If the API call fails
+ */
+export const getAboutPageContent = async (): Promise<AboutPageContent | null> => {
+  try {
+    const query = `
+      query GetAboutPageContent {
+        aboutPages(first: 1) {
+          id
+          title
+          subtitle
+          introText
+          missionTitle
+          missionText
+          valuesTitle
+          valuesList {
+            id
+            title
+            description
+          }
+        }
+      }
+    `;
+
+    const response = await hygraphClient.request<{aboutPages: AboutPageContent[]}>(query);
+    return response.aboutPages && response.aboutPages.length > 0 ? response.aboutPages[0] : null;
+  } catch (error) {
+    console.error('Error fetching about page content:', error);
+    throw new Error('Failed to fetch about page content. Please try again later.');
   }
 };
