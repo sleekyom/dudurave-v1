@@ -1,5 +1,20 @@
-import { getEventBySlug } from "@/lib/hygraph";
+import { getEventBySlug, getAllEvents } from "@/lib/hygraph";
 import { EventDetail } from "@/components/EventDetail";
+
+// This function runs at build time in production
+// export async function generateStaticParams() {
+//   try {
+//     const events = await getAllEvents();
+//     return events?.map((event: { slug: string }) => ({
+//       slug: event.slug,
+//     })) || [];
+//   } catch (error) {
+//     console.error('Error in generateStaticParams:', error);
+//     // Return empty array as fallback to allow build to continue
+//     // Pages will be generated on-demand if needed
+//     return [];
+//   }
+// }
 
 // This is a server component that fetches data and passes it to the client component
 export default async function EventPage({
