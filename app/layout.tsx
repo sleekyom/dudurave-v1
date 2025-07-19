@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
-import { GlobalCountdown } from "@/components/GlobalCountdown";
+import { SiteHeader } from "@/components/SiteHeader";
 import Script from 'next/script';
 
 export const metadata: Metadata = {
@@ -45,7 +45,7 @@ export default function RootLayout({
           ></iframe>
         </noscript>
         {/* End Google Tag Manager (noscript) */}
-        <GlobalCountdown />
+        <SiteHeader />
         {children}
         <Footer />
       </body>

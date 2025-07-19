@@ -26,6 +26,7 @@ export function CountdownTimer({ event }: CountdownTimerProps) {
   useEffect(() => {
     const calculateTimeLeft = () => {
       const eventDate = new Date(event.date);
+      // const eventDate = new Date("2025-06-30T18:00:00");
       const now = new Date();
       const difference = eventDate.getTime() - now.getTime();
 
@@ -68,78 +69,79 @@ export function CountdownTimer({ event }: CountdownTimerProps) {
   }
 
   return (
-    <section className="py-5 px-4 bg-black relative overflow-hidden">
+    <section className="py-1 px-2 bg-black relative overflow-hidden">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-5 left-5 w-16 h-16 bg-gray-700/20 rounded-full animate-bounce"></div>
-        <div className="absolute top-20 right-10 w-12 h-12 bg-gray-600/20 rounded-full animate-pulse"></div>
-        <div className="absolute bottom-10 left-1/4 w-10 h-10 bg-gray-500/20 rounded-full animate-ping"></div>
-        <div className="absolute bottom-16 right-1/3 w-8 h-8 bg-gray-700/20 rounded-full animate-bounce"></div>
+        <div className="absolute top-3 left-3 w-10 h-10 bg-gray-700/20 rounded-full animate-bounce"></div>
+        <div className="absolute top-12 right-8 w-8 h-8 bg-gray-600/20 rounded-full animate-pulse"></div>
+        <div className="absolute bottom-6 left-1/4 w-6 h-6 bg-gray-500/20 rounded-full animate-ping"></div>
+        <div className="absolute bottom-10 right-1/3 w-5 h-5 bg-gray-700/20 rounded-full animate-bounce"></div>
       </div>
 
       <div className="container mx-auto max-w-6xl text-center relative z-10">
-        <div className="bg-gray-900/50 backdrop-blur-sm rounded-3xl p-4 md:p-6 border border-gray-700 shadow-2xl">
-          <div className="mb-3">
-            <h2 className="text-xl md:text-2xl font-bold text-gray-300 mb-1">
-              NEXT EVENT DROPPING SOON
-            </h2>
-            <h3 className="text-2xl md:text-3xl font-black text-white mb-2">
-              {event.title}
-            </h3>
-            <p className="text-base md:text-lg text-gray-300 mb-3">
-              📍 {event.location}
-            </p>
+        <div className="bg-gray-900/50 backdrop-blur-sm rounded-3xl p-2 md:p-3 border border-gray-700 shadow-lg max-w-4xl mx-auto">
+          <h2 className="text-[10px] md:text-xs uppercase tracking-wide text-gray-300 mb-0">
+            NEXT EVENT DROPPING SOON
+          </h2>
+          <h1 className="text-sm md:text-base font-bold text-white mb-0">
+            {event.title}
+          </h1>
+          <div className="text-[10px] text-gray-400 mb-0.5">
+            📍 {event.location}
           </div>
 
-          <div className="grid grid-cols-4 gap-3 md:gap-4 max-w-2xl mx-auto mb-4">
-            <div className="bg-gray-900 rounded-xl p-2 md:p-3 transform hover:scale-105 transition-transform duration-300 shadow-lg border border-gray-700">
-              <div className="text-2xl md:text-4xl font-black text-white mb-0">
-                {timeLeft.days.toString().padStart(2, "0")}
+          <div className="grid grid-cols-4 gap-1 max-w-xl mx-auto mb-1">
+            <div className="bg-gray-900 px-1 py-1.5 md:px-2 md:py-2 rounded-lg border border-gray-700">
+              <div className="text-base md:text-xl font-bold text-white animate-pulse-slow">
+                {String(timeLeft.days).padStart(2, "0")}
               </div>
-              <div className="text-xs md:text-sm font-semibold text-gray-400 uppercase tracking-wide">
+              <div className="text-[10px] uppercase text-gray-400 tracking-wide">
                 Days
               </div>
             </div>
 
-            <div className="bg-gray-900 rounded-xl p-2 md:p-3 transform hover:scale-105 transition-transform duration-300 shadow-lg border border-gray-700">
-              <div className="text-2xl md:text-4xl font-black text-white mb-0">
-                {timeLeft.hours.toString().padStart(2, "0")}
+            <div className="bg-gray-900 px-1 py-1.5 md:px-2 md:py-2 rounded-lg border border-gray-700">
+              <div className="text-base md:text-xl font-bold text-white">
+                {String(timeLeft.hours).padStart(2, "0")}
               </div>
-              <div className="text-xs md:text-sm font-semibold text-gray-400 uppercase tracking-wide">
+              <div className="text-[10px] uppercase text-gray-400 tracking-wide">
                 Hours
               </div>
             </div>
 
-            <div className="bg-gray-900 rounded-xl p-2 md:p-3 transform hover:scale-105 transition-transform duration-300 shadow-lg border border-gray-700">
-              <div className="text-2xl md:text-4xl font-black text-white mb-0">
-                {timeLeft.minutes.toString().padStart(2, "0")}
+            <div className="bg-gray-900 px-1 py-1.5 md:px-2 md:py-2 rounded-lg border border-gray-700">
+              <div className="text-base md:text-xl font-bold text-white">
+                {String(timeLeft.minutes).padStart(2, "0")}
               </div>
-              <div className="text-xs md:text-sm font-semibold text-gray-400 uppercase tracking-wide">
+              <div className="text-[10px] uppercase text-gray-400 tracking-wide">
                 Minutes
               </div>
             </div>
 
-            <div className="bg-gray-900 rounded-xl p-2 md:p-3 transform hover:scale-105 transition-transform duration-1000 shadow-lg animate-pulse border border-gray-700">
-              <div className="text-2xl md:text-4xl font-black text-white mb-0">
-                {timeLeft.seconds.toString().padStart(2, "0")}
+            <div className="bg-gray-900 px-1 py-1.5 md:px-2 md:py-2 rounded-lg border border-gray-700 relative overflow-hidden">
+              <div className="relative z-10">
+                <div className="text-base md:text-xl font-bold text-white">
+                  {String(timeLeft.seconds).padStart(2, "0")}
+                </div>
+                <div className="text-[10px] uppercase text-gray-400 tracking-wide">
+                  Seconds
+                </div>
               </div>
-              <div className="text-xs md:text-sm font-semibold text-gray-400 uppercase tracking-wide">
-                Seconds
-              </div>
+              <div className="absolute inset-0 bg-gray-800 opacity-50 animate-pulse-slow"></div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 justify-center items-center mt-3">
+          <div className="flex flex-col gap-1 justify-center items-center mt-2">
             {event.ticketLink && (
               <a
                 href={event.ticketLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gray-700 hover:bg-gray-800 text-white font-bold py-1 px-5 rounded-full text-sm md:text-base transition-all duration-300 transform hover:scale-105 shadow-lg"
+                className="bg-gray-700 hover:bg-gray-800 text-white font-bold py-0.5 px-4 rounded-full text-xs md:text-sm transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
                 🎫 GET TICKETS NOW 🎫
               </a>
             )}
-            <div className="flex items-center space-x-1 text-gray-400 text-xs">
+            <div className="flex items-center space-x-1 text-gray-400 text-[10px] mt-1">
               <span className="animate-bounce">🎵</span>
               <span>Get ready to vibe!</span>
               <span className="animate-bounce">🎵</span>
