@@ -26,7 +26,6 @@ export function CountdownTimer({ event }: CountdownTimerProps) {
   useEffect(() => {
     const calculateTimeLeft = () => {
       const eventDate = new Date(event.date);
-      // const eventDate = new Date("2025-06-30T18:00:00");
       const now = new Date();
       const difference = eventDate.getTime() - now.getTime();
 
@@ -50,22 +49,9 @@ export function CountdownTimer({ event }: CountdownTimerProps) {
     return () => clearInterval(timer);
   }, [event.date]);
 
+  // If event has passed, don't show anything
   if (isEventPassed) {
-    return (
-      <section className="py-5 px-4 bg-black">
-        <div className="container mx-auto max-w-4xl text-center">
-          <div className="rounded-3xl bg-gray-900/50 p-3 md:p-4 border border-gray-700 relative overflow-hidden">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-1">
-              🎉 Event Has Started! 🎉
-            </h2>
-            <p className="text-base text-gray-300 mb-2">
-              {event.title} is happening now!
-            </p>
-            <div className="animate-pulse text-4xl">🎵</div>
-          </div>
-        </div>
-      </section>
-    );
+    return null;
   }
 
   return (
