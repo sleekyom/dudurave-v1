@@ -10,10 +10,10 @@ export default function NotFound() {
         </p>
         <div className="pt-4">
           <Link
-            href="/coming-soon"
+            href="/"
             className="px-6 py-3 bg-amber-500 text-black font-medium rounded-md hover:bg-amber-400 transition-colors inline-block"
           >
-            Return to Coming Soon
+            Return to Home
           </Link>
         </div>
       </div>

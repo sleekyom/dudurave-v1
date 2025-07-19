@@ -30,15 +30,15 @@ export function middleware(request: NextRequest) {
   */
 }
 
-// Configure the middleware to run on specific paths, excluding build-critical paths
+// Since middleware just passes through all requests, we can disable it entirely
+// or keep minimal config for future use
 export const config = {
   matcher: [
     /*
      * Match all request paths except for:
      * - API routes (/api/*)
      * - Static files (_next/static/*, _next/image/*, favicon.ico, etc.)
-     * - The coming-soon path itself
      */
-    '/((?!api|_next/static|_next/image|_next/data|favicon.ico|coming-soon).*)',
+    '/((?!api|_next/static|_next/image|_next/data|favicon.ico).*)',
   ],
 };

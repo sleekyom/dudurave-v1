@@ -9,6 +9,7 @@ export interface DuduraveEvent {
     url: string;
   };
   slug: string;
+  ticketLink?: string;
 }
 
 export interface EventsResponse {
@@ -27,6 +28,7 @@ export interface EventDetailsResponse {
       url: string;
     };
     slug: string;
+    ticketLink?: string;
   };
 }
 

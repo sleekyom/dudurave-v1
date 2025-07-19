@@ -3,7 +3,10 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  images: { unoptimized: false },
+  images: { 
+    unoptimized: false,
+    domains: ['eu-west-2.graphassets.com', 'graphassets.com'],
+  },
   // This fixes the "Cannot read properties of null (reading 'useContext')" error
   // by completely disabling static generation
   // output: 'export',

@@ -1,24 +1,16 @@
 import Link from "next/link";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CalendarDays, MapPin } from "lucide-react";
 import { format } from "date-fns";
+import { DuduraveEvent } from "@/lib/types";
 
-interface EventCardProps {
-  event: {
-    title: string;
-    description: string;
-    date: string;
-    location: string;
-    price: number;
-    image: {
-      url: string;
-    };
-    slug: string;
-  };
-}
-
-export function EventCard({ event }: EventCardProps) {
+export function EventCard({ event }: { event: DuduraveEvent }) {
   return (
     <Card className="overflow-hidden">
       <div className="aspect-[16/9] relative">
@@ -47,7 +39,7 @@ export function EventCard({ event }: EventCardProps) {
         </div>
       </CardContent>
       <CardFooter className="flex justify-between items-center">
-        <span className="text-lg font-bold">${event.price}</span>
+        {/* <span className="text-lg font-bold">${event.price}</span> */}
         <Link href={`/events/${event.slug}`}>
           <Button>View Details</Button>
         </Link>

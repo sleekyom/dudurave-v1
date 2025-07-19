@@ -80,6 +80,7 @@ export const getEvents = async (): Promise<DuduraveEvent[]> => {
             url
           }
           slug
+          ticketLink
         }
       }
     `;
@@ -125,6 +126,7 @@ export const getEventBySlug = async (slug: string) => {
             url
           }
           slug
+          ticketLink
         }
       }
     `;

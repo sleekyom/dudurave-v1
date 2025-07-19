@@ -5,6 +5,7 @@ import { Navbar } from "@/components/ui/navbar";
 import { CalendarDays, MapPin } from "lucide-react";
 import { format } from "date-fns";
 import { DuduraveEvent } from "@/lib/types";
+import Image from "next/image";
 
 interface EventDetailProps {
   event: DuduraveEvent;
@@ -23,10 +24,12 @@ export function EventDetail({ event }: EventDetailProps) {
           <div>
             {event.image?.url ? (
               <div className="relative rounded-lg overflow-hidden h-[400px]">
-                <img
+                <Image
                   src={event.image.url}
                   alt={event.title}
-                  className="object-cover w-full h-full"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             ) : (
@@ -36,7 +39,9 @@ export function EventDetail({ event }: EventDetailProps) {
             )}
           </div>
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">{event.title}</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">
+              {event.title}
+            </h1>
             {event.date && (
               <div className="flex items-center text-gray-600 mb-2">
                 <CalendarDays className="h-4 w-4 mr-2" />
@@ -51,24 +56,30 @@ export function EventDetail({ event }: EventDetailProps) {
                 <span>{event.location}</span>
               </div>
             )}
-            {event.price !== undefined && (
+            {/* {event.price !== undefined && (
               <div className="mb-4 text-lg font-medium">
                 ${typeof event.price === 'number' ? event.price.toFixed(2) : event.price}
               </div>
-            )}
+            )} */}
             <div className="prose max-w-none mb-6">
               <p>{event.description}</p>
             </div>
-            <Button size="lg" className="w-full md:w-auto">
-              <a
-                href={`https://ticketing.dudurave.com/events/${event.slug}`} 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full h-full inline-flex items-center justify-center"
-              >
-                Get Tickets
-              </a>
-            </Button>
+            {event.ticketLink ? (
+              <Button size="lg" className="w-full md:w-auto">
+                <a
+                  href={event.ticketLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full h-full inline-flex items-center justify-center"
+                >
+                  Get Tickets
+                </a>
+              </Button>
+            ) : (
+              <Button size="lg" className="w-full md:w-auto" disabled>
+                Tickets Coming Soon
+              </Button>
+            )}
           </div>
         </div>
       </main>

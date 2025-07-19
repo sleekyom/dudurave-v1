@@ -33,10 +33,10 @@ export default function Error({
           </button>
           <div className="pt-2">
             <Link
-              href="/coming-soon"
+              href="/"
               className="text-amber-500 hover:underline"
             >
-              Return to Coming Soon
+              Return to Home
             </Link>
           </div>
         </div>
