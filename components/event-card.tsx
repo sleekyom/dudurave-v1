@@ -17,7 +17,7 @@ export function EventCard({ event }: { event: DuduraveEvent }) {
         <img
           src={event.image.url}
           alt={event.title}
-          className="object-contain w-full h-full rounded-t-lg"
+          className="object-cover w-full h-full rounded-t-lg"
         />
       </div>
       <CardHeader>
