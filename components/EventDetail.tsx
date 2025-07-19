@@ -63,7 +63,7 @@ export function EventDetail({ event }: EventDetailProps) {
               </div>
             )} */}
             <div className="prose max-w-none mb-6">
-              <p>{event.description}</p>
+              <div dangerouslySetInnerHTML={{ __html: event.description.html }} />
             </div>
             {event.ticketLink ? (
               <Button size="lg" className="w-full md:w-auto">

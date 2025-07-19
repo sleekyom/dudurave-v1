@@ -1,7 +1,9 @@
 export interface DuduraveEvent {
   id: string;
   title: string;
-  description: string;
+  description: {
+    html: string;
+  };
   date: string;
   location: string;
   price: number;
@@ -20,7 +22,9 @@ export interface EventDetailsResponse {
   event: {
     id: string;
     title: string;
-    description: string;
+    description: {
+      html: string;
+    };
     date: string;
     location: string;
     price: number;

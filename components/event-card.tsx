@@ -38,7 +38,8 @@ export function EventCard({ event }: { event: DuduraveEvent }) {
             <span>{event.location}</span>
           </div>
           <p className="line-clamp-2 text-sm text-muted-foreground mt-2">
-            {event.description}
+            {/* Strip HTML tags for the card preview */}
+            {event.description.html.replace(/<[^>]*>/g, '')}
           </p>
         </div>
       </CardContent>

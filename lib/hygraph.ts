@@ -72,7 +72,9 @@ export const getEvents = async (): Promise<DuduraveEvent[]> => {
         events(orderBy: date_ASC) {
           id
           title
-          description
+          description {
+            html
+          }
           date
           location
           price
@@ -118,7 +120,9 @@ export const getEventBySlug = async (slug: string) => {
         event(where: { slug: $slug }) {
           id
           title
-          description
+          description {
+            html
+          }
           date
           location
           price
