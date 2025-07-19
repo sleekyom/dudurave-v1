@@ -134,7 +134,7 @@ export function CountdownTimer({ event }: CountdownTimerProps) {
                 href={event.ticketLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-white hover:bg-gray-200 text-black font-bold py-4 px-8 rounded-full text-lg md:text-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
+                className="bg-gray-700 hover:bg-gray-800 text-white font-bold py-4 px-8 rounded-full text-lg md:text-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
                 🎫 GET TICKETS NOW 🎫
               </a>
