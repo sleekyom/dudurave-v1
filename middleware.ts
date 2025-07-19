@@ -2,6 +2,11 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
+  // Site is now live - no more coming-soon redirects
+  // All routes are accessible
+  return NextResponse.next();
+
+  /* DISABLED - Coming Soon Mode
   // Get the pathname from the URL
   const path = request.nextUrl.pathname;
 
@@ -22,6 +27,7 @@ export function middleware(request: NextRequest) {
 
   // Redirect everything else to coming soon page
   return NextResponse.redirect(new URL('/coming-soon', request.url));
+  */
 }
 
 // Configure the middleware to run on specific paths, excluding build-critical paths

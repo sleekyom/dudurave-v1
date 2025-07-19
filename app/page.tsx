@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { getEvents } from "@/lib/hygraph";
+import { DuduraveEvent } from "@/lib/types";
 import { Navbar } from "@/components/ui/navbar";
 import Link from "next/link";
 import Image from "next/image";
 import PollSection from "@/components/PollSection";
 import { PlaylistSection } from "@/components/PlaylistSection";
 import { Button } from "@/components/ui/button";
+import { FeaturedEventsSection } from "@/components/FeaturedEventsSection";
 
 const heroImages = [
   "/duduraveheroone.png",
@@ -16,7 +18,19 @@ const heroImages = [
 ];
 
 export default function Home() {
-  // const events = await getEvents();
+  const [events, setEvents] = useState<DuduraveEvent[]>([]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const eventsData = await getEvents();
+        setEvents(eventsData || []);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
+    };
+    fetchEvents();
+  }, []);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -54,7 +68,7 @@ export default function Home() {
                 connection.
               </p>
             </div>
-            {/* <div className="mt-8">
+            <div className="mt-8">
               <Link href="/events">
                 <Button
                   size="lg"
@@ -63,12 +77,12 @@ export default function Home() {
                   Discover Events
                 </Button>
               </Link>
-            </div> */}
+            </div>
           </div>
         </section>
 
         {/* Featured Events Section */}
-        {/* <FeaturedEventsSection events={events} /> */}
+        <FeaturedEventsSection events={events} />
 
         {/* Poll Section */}
         {/* <PollSection /> */}
