@@ -10,6 +10,7 @@ import PollSection from "@/components/PollSection";
 import { PlaylistSection } from "@/components/PlaylistSection";
 import { Button } from "@/components/ui/button";
 import { FeaturedEventsSection } from "@/components/FeaturedEventsSection";
+import { CountdownTimer } from "@/components/CountdownTimer";
 
 const heroImages = [
   "/duduraveheroone.png",
@@ -80,6 +81,11 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Countdown Timer Section */}
+        {events.length > 0 && (
+          <CountdownTimer event={events[0]} />
+        )}
 
         {/* Featured Events Section */}
         <FeaturedEventsSection events={events} />

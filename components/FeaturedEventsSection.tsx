@@ -17,11 +17,11 @@ export function FeaturedEventsSection({ events }: FeaturedEventsSectionProps) {
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold mb-4">Featured Events</h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          Discover our handpicked selection of upcoming events that
-          celebrate African culture and community
+          Discover our handpicked selection of upcoming events that celebrate
+          African culture and community
         </p>
       </div>
-      
+
       {featuredEvents.length > 0 ? (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -31,7 +31,7 @@ export function FeaturedEventsSection({ events }: FeaturedEventsSectionProps) {
           </div>
           <div className="text-center mt-12">
             <Link href="/events">
-              <Button variant="outline" size="lg">
+              <Button variant="default" size="lg">
                 View All Events
               </Button>
             </Link>
@@ -57,12 +57,11 @@ export function FeaturedEventsSection({ events }: FeaturedEventsSectionProps) {
           </div>
           <h3 className="text-xl font-semibold mb-2">No Featured Events Yet</h3>
           <p className="text-muted-foreground mb-6 max-w-md">
-            We&apos;re curating amazing African cultural events for you. Stay tuned for exciting updates!
+            We&apos;re curating amazing African cultural events for you. Stay
+            tuned for exciting updates!
           </p>
           <Link href="/events">
-            <Button variant="outline">
-              Browse All Events
-            </Button>
+            <Button variant="default">Browse All Events</Button>
           </Link>
         </div>
       )}
