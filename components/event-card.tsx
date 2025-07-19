@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -14,10 +15,13 @@ export function EventCard({ event }: { event: DuduraveEvent }) {
   return (
     <Card className="overflow-hidden">
       <div className="aspect-[16/9] relative bg-gray-100 flex items-center justify-center">
-        <img
+        <Image
           src={event.image.url}
           alt={event.title}
-          className="object-cover w-full h-full rounded-t-lg"
+          className="object-cover rounded-t-lg"
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+          priority
         />
       </div>
       <CardHeader>
