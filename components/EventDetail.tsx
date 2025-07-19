@@ -23,12 +23,13 @@ export function EventDetail({ event }: EventDetailProps) {
         <div className="grid md:grid-cols-2 gap-8">
           <div>
             {event.image?.url ? (
-              <div className="relative rounded-lg overflow-hidden h-[400px]">
+              <div className="relative rounded-lg overflow-hidden bg-gray-100 min-h-[400px] flex items-center justify-center">
                 <Image
                   src={event.image.url}
                   alt={event.title}
-                  fill
-                  className="object-cover"
+                  width={600}
+                  height={600}
+                  className="object-contain w-full h-auto max-h-[600px] rounded-lg"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>

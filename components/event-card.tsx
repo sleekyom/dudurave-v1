@@ -13,11 +13,11 @@ import { DuduraveEvent } from "@/lib/types";
 export function EventCard({ event }: { event: DuduraveEvent }) {
   return (
     <Card className="overflow-hidden">
-      <div className="aspect-[16/9] relative">
+      <div className="aspect-[16/9] relative bg-gray-100 flex items-center justify-center">
         <img
           src={event.image.url}
           alt={event.title}
-          className="object-cover w-full h-full"
+          className="object-contain w-full h-full rounded-t-lg"
         />
       </div>
       <CardHeader>
