@@ -16,6 +16,11 @@ export function EventDetail({ event }: EventDetailProps) {
     return <div>Event not found</div>;
   }
 
+  // Check if event has passed
+  const eventDate = new Date(event.date);
+  const now = new Date();
+  const isEventPassed = eventDate < now;
+
   return (
     <>
       <Navbar />
@@ -63,9 +68,15 @@ export function EventDetail({ event }: EventDetailProps) {
               </div>
             )} */}
             <div className="prose max-w-none mb-6">
-              <div dangerouslySetInnerHTML={{ __html: event.description.html }} />
+              <div
+                dangerouslySetInnerHTML={{ __html: event.description.html }}
+              />
             </div>
-            {event.ticketLink ? (
+            {isEventPassed ? (
+              <Button size="lg" className="w-full md:w-auto" disabled>
+                Event Ended
+              </Button>
+            ) : event.ticketLink ? (
               <Button size="lg" className="w-full md:w-auto">
                 <a
                   href={event.ticketLink}
